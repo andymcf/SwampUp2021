@@ -4,7 +4,7 @@ pipelines:
       environmentVariables:
         readOnly:
           trainingPath: SU-301-Practical-Guide-to-Leveraging-JFrog-Pipelines-for-Jenkins-Users
-          dockerRepo: swampup301.jfrog.io/urs-docker
+          dockerRepo: mcfarlanda.jfrog.io/urs-docker
           pythonRepo: urs-python
           genericRepo: urs-generic
           genericPromotionRepo: urs-generic-release-local
@@ -33,7 +33,7 @@ pipelines:
             - name: artifactory_eu
         execution:
           onStart:
-            - jfrog --version 
+            - jfrog --version
             - cd ${res_lab2_src_code_webapp_python_resourcePath}/${trainingPath}/src/python && ls -l
             - git branch
             - jfrog config add --url=${int_artifactory_eu_url%/artifactory} --user="${int_artifactory_eu_user}" --apikey=${int_artifactory_eu_apikey} --interactive=false  art1 && jfrog config show
@@ -45,8 +45,8 @@ pipelines:
             - jfrog rt bce ${res_lab2_bi_webapp_python_buildName} ${run_number}
             - jfrog rt bp  ${res_lab2_bi_webapp_python_buildName} ${run_number}
           onSuccess:
-            - | 
-              if [ ${res_lab2_src_code_webapp_python_isGitTag} == 'True' ]; then 
+            - |
+              if [ ${res_lab2_src_code_webapp_python_isGitTag} == 'True' ]; then
                 add_run_variables runVarAppVersion=${res_lab2_src_code_webapp_python_gitTagName}
               else
                 add_run_variables runVarAppVersion=${res_lab2_src_code_webapp_python_commitSha2048}
@@ -76,7 +76,7 @@ pipelines:
           outputResources:
             - name: lab2_bi_webapp_python_promoted
             - name: lab2_pb_webapp_python
-        execution:  
+        execution:
           onSuccess:
             - write_output lab2_pb_webapp_python appVersion=${runVarAppVersion}
 
