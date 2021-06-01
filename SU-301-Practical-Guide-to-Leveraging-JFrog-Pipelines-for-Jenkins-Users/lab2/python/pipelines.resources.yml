@@ -3,7 +3,7 @@ resources:
     type: GitRepo
     configuration:
       gitProvider: my_github
-      path: cyan21/SwampUp2021
+      path: andymcf/SwampUp2021
       branches:
         include: {{ gitBranch }}
       files:
@@ -51,7 +51,7 @@ resources:
       pattern: "urs-generic/*.tar.gz"
       props: "vcs.revision=${runVarAppVersion}"
       flat: true
-      
+
   - name: lab2_bi_webapp_python_docker
     type: BuildInfo
     configuration:
